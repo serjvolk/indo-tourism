@@ -1,0 +1,454 @@
+@import "import/mixin"; // Подключаю миксины
+
+// ================== Подключаем шрифты ===================
+@import "import/fonts";
+// --------------------------------------------------------
+
+// ====================== Переменные ======================
+$minwidth: 320px;
+$mw: 975;
+$md1: $mw + 12;
+$md2: 992.98;
+$md3: 767.98;
+$md4: 479.98;
+$fontfamily: "Segoe-WP-Light";
+$ff1: "Segoe-WP-Bold";
+$ff2: "Segoe-WP-Semibold"; 
+$ff3: "Segoe-WP-SemiLight"; 
+$ff4: "SegoeWPN-Semilight";
+// --------------------------------------------------------
+
+@import "import/null"; // Обнуляющие стили
+
+// ===================== Оболочка =========================
+.wrapper{
+	width: 100%;
+	min-height: 100%;
+	overflow: hidden;
+	&.loaded{
+
+	}
+}
+// --------------------------------------------------------
+
+// ================= Основная сетка =======================
+.container{
+	max-width: $mw+px; margin: 0 auto; width: 100%;
+	@media (max-width:$md1+px) {max-width: 970px;}
+	@media (max-width:$md2+px) {max-width: 950px;}
+	@media (max-width:$md3+px) {max-width: none;padding: 0 10px;}
+}
+// --------------------------------------------------------
+
+
+// ========================================================
+// ---------- Вертска переиспользуемых блоков -------------
+// ========================================================
+
+.ibg{
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	img{display: none;}
+}
+
+// ========================================================
+// ------------- Вертска уникальных блоков ----------------
+// ========================================================
+
+
+.header {
+	position: absolute;
+	width: 100%;
+	top: 0;
+	left: 0;
+	z-index: 50;
+	&:before{
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		//background-color: #5e5373;
+		z-index: 2;
+	}
+	&__body {
+		position: relative;
+		display: flex;
+		justify-content: space-between;
+		height: 70px;
+		align-items: center;
+		padding: 0 10px;
+	}
+	&__logo {
+		white-space: nowrap;
+		position: relative;
+		z-index: 3;
+		line-height: 36px;
+		color: #1298dd;
+		font-family: $ff2;
+		font-size: 36px;
+		letter-spacing: -2.18px;
+		span{
+			font-family: $ff4;
+			color: #8d8d8d;
+		}
+
+	}
+	&__burger {
+		display: none;
+		&.active{
+			&:before{
+				transform: rotate(45deg);
+				top: 9px;
+			}
+			&:after{
+				transform: rotate(-45deg);
+				bottom: 9px;
+			}
+			span{
+				transform: scale(0);
+			}
+		}
+	}
+	&__menu {}
+	&__list {
+		display: flex;
+		position: relative;
+		z-index: 2;
+		li{
+			list-style: none;
+			margin-left: 20px;
+		}
+	}
+	&__link {
+		color: #676767;
+		font-family: $ff4;
+		font-size: 16px;
+		//line-height: 36px;
+		@media (min-width:767px){
+		&_b{
+			padding: 5px 10px;
+			border-radius: 5px;
+			box-shadow: inset 0 1px 0 rgba(136, 211, 251, 0.75);
+			border: 1px solid #1784d1;
+			background-image: linear-gradient(to top, #1f84e7 0%, #37b3f8 100%);
+			color: #ffffff;
+		}
+		}
+	}
+
+	@media (max-width:767px){
+		&__burger {
+			display: block;
+			position: relative;
+			width: 30px;
+			height: 20px;
+			z-index: 3;
+			&:before, &:after{
+				content: '';
+				background-color: #1298DD;
+				position: absolute;
+				width: 100%;
+				height: 2px;
+				left: 0;
+				transition: all 0.3s ease 0s;
+			}
+			&:before{
+				top: 0;
+			}
+			&:after{
+				bottom: 0;
+			}
+			span{
+				position: absolute;
+				background-color: #1298DD;
+				left: 0;
+				width: 100%;
+				height: 2px;
+				top: 9px;
+				transition: all 0.3s ease 0s;
+			}
+		}
+		&__menu {
+			position: fixed;
+			top: -100%;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(255, 255, 255, 0.8);
+			overflow: auto;
+			transition: all 0.3s ease 0s;
+			padding: 70px 10px 20px 10px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			
+			&.active{
+				top: 0;
+			}
+		}
+		&__body {
+			height: 50px;
+			padding: 0;
+		}
+		&__logo {
+			flex: 0 0 40px;
+		}
+		&__list {
+			display: block;
+			li{
+				margin: 0 0 50px 0;
+			}
+		}
+		&__link {
+			font-size: 24px;
+		}	
+	}
+}
+
+///////////////////////////////////////////////////////////
+
+.ask {
+	position: relative;
+	margin-top: 70px;
+	@media (max-width:$md3+px) {
+	    margin-top: 50px;
+	}
+	&__body {
+		text-align: center;
+		position: relative;
+		z-index: 2; // Вытаскиваем содержимое блока body поверх блока image
+	}
+	&__title {
+		text-align: center;
+		max-width: 880px;
+		margin: 0 auto;
+		text-shadow: 0 0 5px rgba(0, 0, 0, 0.07);
+		color: #ffffff;
+		font-family: $ff2;
+		font-size: 52px;
+		text-transform: uppercase;
+		padding: 160px 10px 10px 10px;
+		@media (max-width:$md3+px) {
+		    font-size: 40px;
+		    padding-top: 120px;
+		}
+		@media (max-width:$md4+px) {
+		    font-size: 36px;
+		    padding-top: 100px;
+		}
+	}
+	&__subtitle {
+		text-align: center;
+		max-width: 846px;
+		margin: 0 auto;
+		text-shadow: 0 0 5px rgba(0, 0, 0, 0.07);
+		color: #ffffff;
+		font-family: $ff3;
+		font-size: 48px;
+		text-transform: uppercase;
+		padding-bottom: 40px;
+		@media (max-width:$md3+px) {
+		    font-size: 36px;
+		}
+		@media (max-width:$md4+px) {
+		    font-size: 32px;
+		}
+	}
+	&__button {
+		display: inline-block;
+		text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+		color: #ffffff;
+		font-size: 34px;
+		font-family: $ff1;
+		padding: 15px 55px;
+		box-shadow: inset 0 1px 0 rgba(112, 243, 84, 0.75);
+		border-radius: 3px;
+		background-color: #636363;
+		background-image: linear-gradient(to top, #34ae22 0%, #6ed258 100%);
+		margin-bottom: 160px;
+		position: relative;
+		@media (max-width:$md3+px) {
+		    margin-bottom: 120px;
+		}
+		@media (max-width:$md4+px) {
+		    margin-bottom: 100px;
+		}
+		&:after{
+			content: "";
+			position: absolute;
+			top: -6px;
+			left: -6px;
+			width: calc(100% + 12px);
+			height: calc(100% + 12px);
+			border-radius: 10px;
+			border: 6px solid rgba(0, 0, 0, 0.12);
+		}
+	}
+	&__image{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+}
+
+///////////////////////////////////////////////////////////
+
+.lifetime {
+	margin-top: -96px;
+	@media (max-width:$md3+px) {
+	    margin-top: -46px;
+	}
+	.container {
+		max-width: 480px;
+		margin: 0 auto;
+	}
+	background-color: #ECECEC;
+	&__body {
+		position: relative;
+		z-index: 5;
+		background-color: #fff;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+		border-bottom: 7px solid #51c03d;
+		border-radius: 5px;
+		padding-top: 23px;
+	}
+	&__title {
+		color: #868686;
+		font-size: 22px;
+		text-align: center;
+	}
+	&__content {
+		padding: 25px 25px 10px 25px;
+		@media (max-width:$md3+px) {
+		   padding: 25px 15px 10px 15px;
+		}
+		display: inline-flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		margin: 0 -4px; // Трюк с отрицательным отступом
+	}
+	&__column{
+		margin-bottom: 15px;
+		padding: 0 4px; // Трюк с отрицательным отступом
+	}
+	&__item {
+		display: inline-flex;
+		flex-direction: column;
+		width: 100%;
+		span{
+			display: inline-block;
+			margin-top: 6px;
+			color: #929292;
+			font-size: 14px;
+		}
+		img{
+			max-width: 80px;
+		}
+	}
+}
+
+///////////////////////////////////////////////////////////
+
+.services {
+	background-color: #ECECEC;
+	padding-top: 55px;
+	padding-bottom: 15px;
+	@media (max-width:$md3+px) {
+	    padding-top: 35px;
+	    padding-bottom: 0px;
+	}
+	.container {
+		max-width: 760px;
+	}
+	&__body {
+		
+	}
+	&__title {
+		color: #7e7c7c;
+		font-size: 26px;
+		line-height: 34px;
+		text-align: center;
+	}
+	&__subtitle {
+		text-align: center;
+		color: #7e7c7c;
+		font-size: 22px;
+		line-height: 34px;
+		margin-bottom: 55px;
+		@media (max-width:$md3+px) {
+		    margin-bottom: 35px;
+		}
+	}
+	&__row {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+	&__column {
+		flex: 0 0 25%;
+		margin-bottom: 40px;
+		@media (max-width:$md3+px) {
+		    flex: 0 0 50%;
+
+		}
+		@media (max-width:$md4+px) {
+		    flex: 0 0 100%;
+		    margin-bottom: 30px;
+		    position: relative;
+		    &:after{
+		    	content: "";
+		    	position: absolute;
+		    	bottom: -5px;
+		    	width: 100%;
+		    	height: 2px;
+		    	background-color: #fff;
+		    }
+		    &:last-child{
+		    	margin-bottom: 20px;
+		    	&:after{
+		    		display: none;
+		    	}
+		    }
+		}
+	}
+	&__item {
+		text-align: center;
+	}
+	&__image {
+		width: 133px;
+		height: 133px;
+		margin: 0 auto;
+		background-color: #fff;
+		border-radius: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		img{max-width: 100%;}
+
+	}
+	&__label {
+		color: #7e7c7c;
+		font-family: $fontfamily;
+		font-size: 20px;
+		line-height: 34px;
+	}
+}
+
+///////////////////////////////////////////////////////////
+
+.footer{
+	background-color: #414141;
+	padding: 8px;
+	text-align: center;
+	span{
+		opacity: 0.5;
+		color: #ffffff;
+		font-size: 14px;
+	}
+}
+
